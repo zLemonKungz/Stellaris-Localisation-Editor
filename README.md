@@ -4,53 +4,81 @@
 
 ---
 
-## เกี่ยวกับโปรแกรม
+## Download
 
-SLE (Stellaris Localisation Editor) เป็นโปรแกรม Desktop GUI สำหรับแก้ไขไฟล์คำแปล `.yml` ของเกม Stellaris โดยเฉพาะ รองรับการตรวจสอบความถูกต้องของคำแปลภาษาไทยแบบ Real-time มีระบบ AI ช่วยแปล และระบบตรวจคำผิด
+| Version | Download | Note |
+|---------|----------|------|
+| **v1.0.0** | [SLE-v1.0.0-windows.zip](https://github.com/zLemonKungz/Stellaris-Localisation-Editor/releases/latest) | Windows 64-bit, portable (ไม่ต้องติดตั้ง) |
+
+**วิธีใช้:**
+1. ดาวน์โหลด `SLE-v1.0.0-windows.zip`
+2. แตก zip
+3. เปิด `SLE.exe`
+4. กด `Ctrl+O` → เลือกโฟลเดอร์ `localisation/` ของมอด Stellaris
+5. เริ่มแก้ไขคำแปล
+
+> ต้องการใช้จาก source code? ดูหัวข้อ **Run from Source** ด้านล่าง
+
+---
 
 ## Features
 
 - แก้ไขไฟล์คำแปล `.yml` ทั้งหมดในมอด
-- ตรวจสอบสถานะคำแปลแบบ Real-time (ตรวจจับภาษาไทยจริง ไม่ใช่แค่เช็คว่ามีค่าหรือไม่)
-- AI Translate รองรับ NVIDIA, Gemini, Claude API และ Ollama (Local)
-- ระบบตรวจคำผิด (Spell Check) รองรับทั้งไทยและอังกฤษ
-- Glossary อ้างอิงคำศัพท์ Stellaris
-- รองรับหลายมอด - เปลี่ยนโฟลเดอร์มอดได้ (File > Open Mod Folder)
+- ตรวจสอบสถานะคำแปล Real-time (ตรวจจับภาษาไทยจริง)
+- AI Translate รองรับ NVIDIA, Gemini, Claude, Ollama
+- Spell Check ไทย + อังกฤษ
+- Glossary คำศัพท์ Stellaris
 - Dark Theme
-- รองรับการทำงานร่วมกัน: Package for Translation + Apply Translation Package
+- Package for Translation / Apply Translation Package
 
-## Requirements
+## Requirements (from source)
 
 - Python 3.12+
 - PyQt6
 - requests
 
-## Quick Start
+## Run from Source
 
 ```bash
+git clone https://github.com/zLemonKungz/Stellaris-Localisation-Editor.git
+cd Stellaris-Localisation-Editor
 pip install -r requirements.txt
-cd localisation_editor && python main.py
+python localisation_editor/main.py
 ```
 
-## วิธีเริ่มใช้งาน
+## Keyboard Shortcuts
 
-1. เปิดโปรแกรม → `File > Open Mod Folder...` (Ctrl+O)
-2. เลือกโฟลเดอร์ `localisation/` ของมอด Stellaris
-3. เริ่มแก้ไขคำแปลในหน้า Editor
-4. กด `Ctrl+S` เพื่อบันทึก
-
-## Features
-
-| ปุ่ม/เมนู | คำอธิบาย |
-|-----------|----------|
-| Editor (Ctrl+1) | เรียกดูและแก้ไขไฟล์คำแปล พร้อมระบบค้นหา |
-| Overview (Ctrl+D) | ดูสถิติคำแปล Real-time |
-| Search (Ctrl+Shift+F) | ค้นหาทุกไฟล์ |
-| Glossary | ดูคำศัพท์ Stellaris |
-| File > AI Translate (Ctrl+Shift+T) | แปลด้วย AI อัตโนมัติ |
-| File > Package for Translation | ส่งออกเฉพาะ key ที่ยังไม่ได้แปล |
-| File > Apply Translation Package | นำเข้าคำแปลที่ได้กลับมา |
+| Key | Action |
+|-----|--------|
+| Ctrl+O | Open mod folder |
+| Ctrl+S | Save current file |
+| Ctrl+Shift+T | AI Translate |
+| Ctrl+F | Find in file |
+| Ctrl+Shift+F | Global Search |
+| Ctrl+1-4 | Switch tabs |
+| Ctrl+E | Focus editor |
+| Ctrl+Q | Exit |
 
 ## License
 
-MIT
+MIT License
+
+Copyright (c) 2026 Lemon
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

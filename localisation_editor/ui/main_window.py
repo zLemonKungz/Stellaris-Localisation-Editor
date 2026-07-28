@@ -384,21 +384,33 @@ class MainWindow(QMainWindow):
     # ── Keyboard shortcuts ─────────────────────────────────────────────
 
     def _create_shortcuts(self):
-        # Ctrl+E - focus the editor panel
-        focus_editor = QAction("Focus Editor", self)
-        focus_editor.setShortcut(QKeySequence("Ctrl+E"))
-        focus_editor.triggered.connect(
-            lambda: self._editor_focus()
-        )
-        self.addAction(focus_editor)
+        """Register keyboard shortcuts (not shown in menus)."""
+        # ── File shortcuts ──
+        self._add_shortcut("Ctrl+O", self._open_mod_folder)
+        self._add_shortcut("Ctrl+S", self._save_current_file)
+        self._add_shortcut("Ctrl+Shift+T", self._show_ai_translate)
+        self._add_shortcut("Ctrl+Q", self.close)
 
-        # Ctrl+Return - save current value
-        save_value = QAction("Save Value", self)
-        save_value.setShortcut(QKeySequence("Ctrl+Return"))
-        save_value.triggered.connect(
-            self.editor_panel._save_value
-        )
-        self.addAction(save_value)
+        # ── Edit shortcuts ──
+        self._add_shortcut("Ctrl+F", self._focus_search)
+        self._add_shortcut("Ctrl+Shift+F", lambda: self._main_tabs.setCurrentIndex(2))
+
+        # ── Tab navigation ──
+        self._add_shortcut("Ctrl+1", lambda: self._main_tabs.setCurrentIndex(0))
+        self._add_shortcut("Ctrl+D", lambda: self._main_tabs.setCurrentIndex(1))
+        self._add_shortcut("Ctrl+G", lambda: self._main_tabs.setCurrentIndex(3))
+        self._add_shortcut("Ctrl+K", lambda: self._main_tabs.setCurrentIndex(4))
+
+        # ── Editor shortcuts ──
+        self._add_shortcut("Ctrl+E", self._editor_focus)
+        self._add_shortcut("Ctrl+Return", self.editor_panel._save_value)
+
+    def _add_shortcut(self, key: str, slot):
+        """Register a QAction shortcut so it works without showing in menus."""
+        a = QAction("", self)
+        a.setShortcut(QKeySequence(key))
+        a.triggered.connect(slot)
+        self.addAction(a)
 
     def _editor_focus(self):
         """Focus the editor panel text widget."""
@@ -950,19 +962,21 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, "Keyboard Shortcuts",
                 "<h3>⌨️ Keyboard Shortcuts</h3>"
                 "<table>"
+                "<tr><td><b>Ctrl+O</b></td><td>Open mod folder</td></tr>"
+                "<tr><td><b>Ctrl+S</b></td><td>Save current file</td></tr>"
+                "<tr><td><b>Ctrl+Shift+T</b></td><td>AI Translate</td></tr>"
+                "<tr><td><b>Ctrl+Q</b></td><td>Exit</td></tr>"
+                "<tr><td></td></tr>"
+                "<tr><td><b>Ctrl+F</b></td><td>Find in file</td></tr>"
+                "<tr><td><b>Ctrl+Shift+F</b></td><td>Global Search</td></tr>"
+                "<tr><td></td></tr>"
                 "<tr><td><b>Ctrl+1</b></td><td>Editor tab</td></tr>"
                 "<tr><td><b>Ctrl+D</b></td><td>Overview tab</td></tr>"
-                "<tr><td><b>Ctrl+Shift+F</b></td><td>Search tab</td></tr>"
                 "<tr><td><b>Ctrl+G</b></td><td>Glossary tab</td></tr>"
                 "<tr><td><b>Ctrl+K</b></td><td>Key Analysis tab</td></tr>"
                 "<tr><td></td></tr>"
-                "<tr><td><b>Ctrl+S</b></td><td>Save current file</td></tr>"
-                "<tr><td><b>Ctrl+Shift+S</b></td><td>Save all modified files</td></tr>"
-                "<tr><td><b>Ctrl+R</b></td><td>Reload all files</td></tr>"
-                "<tr><td><b>Ctrl+I</b></td><td>Import translations</td></tr>"
                 "<tr><td><b>Ctrl+E</b></td><td>Focus editor</td></tr>"
                 "<tr><td><b>Ctrl+Return</b></td><td>Save current value</td></tr>"
-                "<tr><td><b>Ctrl+Q</b></td><td>Exit</td></tr>"
                 "</table>"
             )
         except Exception as exc:
@@ -978,7 +992,7 @@ class MainWindow(QMainWindow):
                 f"<hr>"
                 f"<p style='color: #888; font-size: 10px;'>"
                 f"MIT License<br><br>"
-                f"Copyright (c) 2026 SLE Project<br><br>"
+                f"Copyright (c) 2026 Lemon<br><br>"
                 f"Permission is hereby granted, free of charge, to any person "
                 f"obtaining a copy of this software and associated documentation "
                 f"files (the \"Software\"), to deal in the Software without "
